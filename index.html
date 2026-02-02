@@ -1,123 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>For Akshaya 💙</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
-  text-align:center;
-  overflow:hidden;
-}
-.screen{
-  min-height:100vh;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  padding:20px;
-  animation:fade 1.2s ease;
-}
-.screen.active{display:flex;}
-h1{margin-bottom:20px;}
-p{max-width:650px; line-height:1.7; font-size:1.05rem;}
-button{
-  margin-top:30px;
-  padding:14px 32px;
-  border:none;
-  border-radius:30px;
-  background:#ff4b7d;
-  color:white;
-  font-size:1rem;
-  cursor:pointer;
-}
-@keyframes fade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-.heart{
-  position:fixed;
-  bottom:-10px;
-  font-size:20px;
-  animation:floatUp 6s linear infinite;
-}
-@keyframes floatUp{
-  from{transform:translateY(0); opacity:1;}
-  to{transform:translateY(-110vh); opacity:0;}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshaya Birthday</title>
 </head>
-
 <body>
-
-<!-- Background Music (replace link if needed) -->
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5f2f8c1b7a.mp3" type="audio/mpeg">
+<!-- Background music player -->
+<button id="playBgm">Play background music</button>
+<audio id="bgm" loop>
+  <source src="/assets/music/bgm.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
 
-<!-- Screen 1 -->
-<div class="screen active" id="s1">
-  <h1>Hey Akshaya 💙</h1>
-  <p>Tap once… I want to say something.</p>
-  <button onclick="go(1)">Accept 💙</button>
-</div>
-
-<!-- Screen 2 -->
-<div class="screen" id="s2">
-  <h1>Happy Birthday 🎂✨</h1>
-  <button onclick="go(2)">Next ➜</button>
-</div>
-
-<!-- Screen 3 (YOUR VOICE MESSAGE) -->
-<div class="screen" id="s3">
-  <h1>Just For You ⭐</h1>
-  <p>
-    On this birthday, I want to tell you something from my heart.<br><br>
-
-    I think it’s been one year of our journey together.
-    In this one year, we’ve had misunderstandings, anger, and tough moments.
-    But I truly believe that after what happened recently, we both came back stronger.<br><br>
-
-    Let’s stay like this for a lifetime.
-    If I get angry, you bear with me — and when you speak, I promise I’ll listen.
-    Let’s handle everything together, including our families, no matter what comes.<br><br>
-
-    Because when our families are happy, we’ll be happy too.
-    Let’s celebrate many more birthdays like this, smiling and together.<br><br>
-
-    Don’t worry about safety — I’m always here for you.
-    Focus on your career, get your job soon, and once your B.Tech is done, let’s get married.<br><br>
-
-    Once again… Happy Birthday ❤️
-  </p>
-  <p><b>– Yours, Sudarshan 💙</b></p>
-</div>
-
 <script>
-function go(n){
-  document.getElementById("s"+n).classList.remove("active");
-  document.getElementById("s"+(n+1)).classList.add("active");
-  if(n===1){
-    document.getElementById("bgMusic").play();
-    hearts();
-  }
-}
-function hearts(){
-  setInterval(()=>{
-    const h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="💙";
-    h.style.left=Math.random()*100+"vw";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),6000);
-  },400);
-}
-</script>
+  const btn = document.getElementById('playBgm');
+  const bgm = document.getElementById('bgm');
 
+  btn.addEventListener('click', async () => {
+    try {
+      if (bgm.paused) {
+        await bgm.play();
+        btn.textContent = 'Pause background music';
+      } else {
+        bgm.pause();
+        btn.textContent = 'Play background music';
+      }
+    } catch (err) {
+      console.warn('Playback prevented by browser:', err);
+    }
+  });
+</script>
 </body>
 </html>
